@@ -54,7 +54,7 @@ jobs:
         context: .
         file: ./Dockerfile
         push: true
-        tags: ${{ secrets.DOCKERHUB_USERNAME }}/flask-app:latest,${{ secrets.DOCKERHUB_USERNAME }}/flask-app:${{ github.sha }}
+        tags: fatema016/flask-app:latest,fatema016/flask-app:${{ github.sha }}
 
     - name: Image digest
       run: echo ${{ steps.build_step.outputs.digest }}
