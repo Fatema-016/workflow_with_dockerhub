@@ -48,15 +48,13 @@ jobs:
       uses: docker/setup-buildx-action@v3
 
     - name: Build and Push Docker Image
+      id: build_step # ---> Added ID so the digest below can read its output variables
       uses: docker/build-push-action@v5
       with:
         context: .
         file: ./Dockerfile
         push: true
-        
-        tags: |
-          ${{ secrets.DOCKERHUB_USERNAME }}/flask-app:latest
-          ${{ secrets.DOCKERHUB_USERNAME }}/flask-app:${{ github.sha }}
+        tags: ${{ secrets.DOCKERHUB_USERNAME }}/flask-app:latest,${{ secrets.DOCKERHUB_USERNAME }}/flask-app:${{ github.sha }}
 
     - name: Image digest
-      run: echo ${{ steps.build-and-publish.outputs.digest }}
+      run: echo ${{ steps.build_step.outputs.digest }}
